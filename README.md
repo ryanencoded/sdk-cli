@@ -187,8 +187,8 @@ clone ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/sdk /git/developer/s
 You will need to add the following line to your ``~/.bash_profile`` to include in your terminal. Once you have made the change, start a new terminal shell.
 
 ```
-if [ -f /development/git/developer/sdk/loader ]; then
-  source /development/git/developer/sdk/loader
+if [ -f /development/git/developer/sdk-cli/loader ]; then
+  source /development/git/developer/sdk-cli/loader
 fi
 ```
 
