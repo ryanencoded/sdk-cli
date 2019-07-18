@@ -1,0 +1,21 @@
+#!/bin/bash
+########################################################################
+# **Aliases Script**
+#
+# This script contains reusable aliases designed for performing common
+# tasks more efficient and condensing long commands for simplicity.
+########################################################################
+
+##########################################
+# Controlling The Development Environment
+##########################################
+alias apache="sudo /opt/local/sbin/apachectl"
+alias nginx="nginx_helper"
+alias iplocation="curl ipinfo.io/$1"
+alias refresh="source ~/.bash_profile"
+alias profile="vi ~/.bash_profile"
+alias spacer="defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}'"
+
+########################
+# **END Aliases Script**
+########################

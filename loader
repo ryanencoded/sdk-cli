@@ -1,0 +1,122 @@
+#!/bin/bash
+################################################################
+# **Loader Script**
+#
+# This script autoloads the developer tools into the terminal.
+################################################################
+
+#####################
+# Developer SDK Path
+#####################
+DEVSDK="/git/developer/sdk"
+
+#############################
+# Retrieve Global Variables
+#############################
+
+if [ -f $DEVSDK/sbin/variables ]; then
+	source $DEVSDK/sbin/variables
+else
+	echo "$(tput setaf 1)UH Developer Tools: Unable to load global variable$(tput setaf 0)}";
+fi
+
+#######################
+# Set Profile Styling
+#######################
+PS1="\[$RED\]\u\[$WHITE\]:\[$YELLOW\][\w]"
+# FOR SERVERS - PS1="\[$RED\]\u\[$WHITE\]@\[$GREEN\]\h\[$WHITE\]:\[$YELLOW\][\w]\[${WHITE}\]\$ "
+
+####################################
+# Sets Include Path to support:
+#
+#    1) macports commands
+#    2) uh developer tools
+#    3) built-in apple commands
+#    4) android developer tools
+####################################
+
+export PATH=""
+declare -a include=(
+	"/opt/local/bin"
+	"/Users/$USER/.npm-packages/bin"
+	"$DEVSDK/bin"
+	"/usr/bin"
+	"/usr/local/bin"
+	"/bin"
+	"/usr/sbin"
+	"/sbin"
+	"$ANDROIDSDK/tools"
+	"$ANDROIDSDK/platform-tools"
+	"$ANDROIDSDK/build-tools/23.0.1"
+)
+
+for i in "${include[@]}"
+do
+   PATH+=":$i"
+done
+
+#################################################################
+# Retrieves These Custom Bash Sources:
+#
+#    1) automatic git prompts when entering git repositories
+#    2) ssh tunnels for connecting to databases
+#    3) mobile tool commands for simplifying mobile development
+#    4) aliases for developing simplicity and efficiency
+#	 5) helper functions for developing simplicity and efficiency
+#################################################################
+
+# 1) Git Prompts
+if [ -f /opt/local/share/git/git-prompt.sh ]; then
+    source /opt/local/share/git/git-prompt.sh
+	PS1+="\[${GREEN}\]\$(__git_ps1 \(%s\))\[$WHITE\]\$ "
+else
+	echo "${RED}Developer SDK: Git Prompt Missing${WHITE}";
+	PS1+="\[$WHITE\]\$ "
+fi
+
+# 2) SSH Database Tunnels
+if [ -f $DEVSDK/sbin/tunnels ]; then
+	source $DEVSDK/sbin/tunnels
+else
+	echo "${RED}Developer SDK: Tunnels Missing${WHITE}";
+fi
+
+# 3) Mobile Tools
+if [ -f $DEVSDK/sbin/mobile ]; then
+	source $DEVSDK/sbin/mobile
+else
+	echo "${RED}Developer SDK: Mobile Tools Missing${WHITE}";
+fi
+
+# 4) Aliases
+if [ -f $DEVSDK/sbin/aliases ]; then
+	source $DEVSDK/sbin/aliases
+else
+	echo "${RED}Developer SDK: Helper Aliases Missing${WHITE}";
+fi
+
+# 4) Helper Functions
+if [ -f $DEVSDK/sbin/helpers ]; then
+	source $DEVSDK/sbin/helpers
+else
+	echo "${RED}Developer SDK: Helper Functions Missing${WHITE}";
+fi
+
+
+echo "${BLUE}Developer SDK Loaded ${WHITE}";
+
+
+#Check That Apache and PHP Dont Need Updated
+if [ ! -L /opt/local/etc/apache2/httpd.conf ]; then
+   echo "${RED}Please run [sdk-update lib] to update your Apache.${WHITE}";
+fi
+
+if [ ! -L /opt/local/etc/nginx/nginx.conf ]; then
+  echo "${RED}Please run [sdk-update lib] to update your Nginx.${WHITE}";
+fi
+
+
+
+########################
+# **END Loader Script**
+########################

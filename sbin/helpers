@@ -1,0 +1,206 @@
+#!/bin/bash
+########################################################################
+# **Helper Functions Script**
+#
+# This script contains reusable functions designed for performing common
+# tasks more efficient and condensing long commands for simplicity.
+########################################################################
+
+
+################################
+# Toggle Hidden Files in Finder
+################################
+function hidden {
+    if ! ( [ $1 ])	then
+		echo -e "${RED}Missing Argument: [on|off]${WHITE}"
+		return
+    fi
+    case "$1" in
+		on)
+		  defaults write com.apple.finder AppleShowAllFiles YES;
+		  killall Finder;
+		  echo -e "${BLUE}Hidden Files On${WHITE}";
+		  ;;
+		off)
+		  defaults write com.apple.finder AppleShowAllFiles NO;
+		  killall Finder;
+		  echo -e "${BLUE}Hidden Files Off${WHITE}";
+		  ;;
+		*)
+	  echo -e "${RED}Invalid Argument: [on|off]${WHITE}"
+	  return
+	  ;;
+    esac
+}
+
+############################
+# Destroy Certain Processes
+############################
+function destroy {
+    if ! ( [ $1 ])	then
+		echo -e "${RED}Missing Argument: [dns|ssh]${WHITE}"
+		return
+    fi
+    case "$1" in
+		dns)
+		  sudo dscacheutil -flushcache;
+		  sudo killall -HUP mDNSResponder;
+		  echo -e "${BLUE}DNS Cashe Flushed${WHITE}";
+		  ;;
+		ssh)
+		  sudo killall ssh;
+		  echo -e "${BLUE}SSH Tunnels Destroyed${WHITE}";
+		  ;;
+		*)
+	  echo -e "${RED}Invalid Argument: [dns|ssh]${WHITE}"
+	  return
+	  ;;
+    esac
+}
+
+#########################
+# Fix Potential Concerns
+#########################
+function fix {
+    if ! ( [ $1 ])	then
+		echo -e "${RED}Missing Argument: [permissions|title]${WHITE}"
+		return
+    fi
+    case "$1" in
+		title)
+		  	echo -e "\033];$2\007";
+		  ;;
+		permissions)
+		  	sudo chown -R $USER:webdev /development/;
+		  	sudo chmod -R 775 /development/;
+		  	echo -e "${BLUE}Fixed Development Permissions${WHITE}";
+		  ;;
+		*)
+	  echo -e "${RED}Invalid Argument: [permissions|title]${WHITE}"
+	  return
+	  ;;
+    esac
+}
+
+###########################
+# Update Methods in Tools
+###########################
+function sdk-update {
+    if ! ( [ $1 ])	then
+		echo -e "${RED}Missing Argument: [sdk]${WHITE}"
+		return
+    fi
+    case "$1" in
+		lib)
+		  echo -e "${BLUE}Updating SDK${WHITE}";
+		  if [ -f $DEVSDK/lib/apache/httpd.conf ]; then
+				#Delete the File (Real or Symlink)
+				if [ -e /opt/local/etc/apache2/httpd.conf ]; then
+					sudo rm /opt/local/etc/apache2/httpd.conf;
+				fi
+				# Create Symlink
+				sudo ln -s $DEVSDK/lib/apache/httpd.conf /opt/local/etc/apache2/httpd.conf;
+				echo "${GREEN}Updated Apache, Please run [apache start|restart].${WHITE}";
+		  else
+			echo "${RED}Unable to Update Apache. Manual Process Required!${WHITE}";
+		  fi
+
+      if [ -f $DEVSDK/lib/nginx/nginx.conf ]; then
+				#Delete the File (Real or Symlink)
+
+				if [ -e /opt/local/etc/nginx/nginx.conf ]; then
+					sudo rm /opt/local/etc/nginx/nginx.conf;
+				fi
+				# Create Symlink
+				sudo ln -s $DEVSDK/lib/nginx/nginx.conf /opt/local/etc/nginx/nginx.conf;
+				echo "${GREEN}Updated Nginx, Please run [nginx start].${WHITE}";
+		  else
+			echo "${RED}Unable to Update Nginx. Manual Process Required!${WHITE}";
+		  fi
+
+
+		  # if [ -f $DEVSDK/lib/php/php.ini ]; then
+			# 	#Delete the File (Real or Symlink)
+			# 	if [ -e /opt/local/etc/php71/php.ini ]; then
+			# 		sudo rm /opt/local/etc/php71/php.ini;
+			# 	fi
+			# 	# Create Symlink
+			# 	sudo ln -s $DEVSDK/lib/php/php.ini /opt/local/etc/php71/php.ini;
+			# 	echo "${GREEN}Updated PHP, Please run [apache start|restart].${WHITE}";
+		  # else
+			# echo "${RED}Unable to Update PHP. Manual Process Required!${WHITE}";
+		  # fi
+		  ;;
+		*)
+	  echo -e "${RED}Invalid Argument: [sdk]${WHITE}"
+	  return
+	  ;;
+    esac
+}
+
+
+
+
+##############################
+# Apache2 Alias (Deprecating)
+##############################
+function apache2 {
+	echo -e "${RED}Please use the [apache] command instead of [apache2]${WHITE}";
+
+    if ! ( [ $1 ])	then
+		echo -e "${RED}Missing Argument: [start|stop|restart]${WHITE}"
+		return
+    fi
+    case "$1" in
+		start)
+		  sudo /opt/local/sbin/apachectl start;
+		  echo -e "${BLUE}Started Apache${WHITE}";
+		  ;;
+		stop)
+		  sudo /opt/local/sbin/apachectl stop;
+		  echo -e "${BLUE}Stop Apache${WHITE}";
+		  ;;
+		restart)
+		  sudo /opt/local/sbin/apachectl restart;
+		  echo -e "${BLUE}Restarted Apache${WHITE}";
+		  ;;
+		*)
+	  echo -e "${RED}Invalid Argument: [on|off]${WHITE}"
+	  return
+	  ;;
+    esac
+}
+
+
+##############################
+# Apache2 Alias (Deprecating)
+##############################
+function nginx_helper {
+    if ! ( [ $1 ])	then
+		echo -e "${RED}Missing Argument: [start|stop|restart]${WHITE}"
+		return
+    fi
+    case "$1" in
+		start | load)
+		  sudo port load nginx;
+		  echo -e "${BLUE}Started Nginx${WHITE}";
+		  ;;
+		unload | stop)
+		  sudo port unload nginx;
+		  echo -e "${BLUE}Stop Nginx${WHITE}";
+		  ;;
+		reload)
+		  sudo /opt/local/sbin/nginx -s reload;
+		  echo -e "${BLUE}Reloaded Nginx${WHITE}";
+		  ;;
+
+		*)
+	  echo -e "${RED}Invalid Argument: [start|load|stop|unload|reload]${WHITE}"
+	  return
+	  ;;
+    esac
+}
+
+#################################
+# **END Helper Functions Script**
+#################################

@@ -1,0 +1,51 @@
+#!/bin/bash
+###########################################################
+# **Global Variables**
+#
+# These are reusable variables used throughout the tools.
+###########################################################
+
+###################################
+# Android Developer Tools SDK Path
+###################################
+ANDROIDSDK="/opt/local/share/java/android-sdk-macosx"
+
+##################
+# Regular Colors
+##################
+BLACK="$(tput setaf 0)"
+RED="$(tput setaf 1)"
+GREEN="$(tput setaf 2)"
+YELLOW="$(tput setaf 3)"
+BLUE="$(tput setaf 4)"
+PURPLE="$(tput setaf 5)"
+CYAN="$(tput setaf 7)"
+WHITE="$(tput setaf 8)"
+
+################
+# Light Colors
+################
+LBLACK="$(tput setab 0)"
+LRED="$(tput setab 1)"
+LGREEN="$(tput setab 2)"
+LYELLOW="$(tput setab 3)"
+LBLUE="$(tput setab 4)"
+LPURPLE="$(tput setab 5)"
+LCYAN="$(tput setab 7)"
+LWHITE="$(tput setab 8)"
+
+#####################
+# Inverse the Colors
+#####################
+ROLOC="$(tput rev)"
+
+##################
+# Bold the Output
+##################
+BOLD="$(tput bold)"
+
+##########################
+# Underline Start and End
+##########################
+USTART="$(tput smul)"
+UEND="$(tput rmul)"
