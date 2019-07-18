@@ -107,13 +107,13 @@ echo "${BLUE}Developer SDK Loaded ${WHITE}";
 
 
 #Check That Apache and PHP Dont Need Updated
-if [ ! -L /opt/local/etc/apache2/httpd.conf ]; then
-   echo "${RED}Please run [sdk-update lib] to update your Apache.${WHITE}";
-fi
-
-if [ ! -L /opt/local/etc/nginx/nginx.conf ]; then
-  echo "${RED}Please run [sdk-update lib] to update your Nginx.${WHITE}";
-fi
+# if [ ! -L /opt/local/etc/apache2/httpd.conf ]; then
+#    echo "${RED}Please run [sdk-update lib] to update your Apache.${WHITE}";
+# fi
+#
+# if [ ! -L /opt/local/etc/nginx/nginx.conf ]; then
+#   echo "${RED}Please run [sdk-update lib] to update your Nginx.${WHITE}";
+# fi
 
 
 
