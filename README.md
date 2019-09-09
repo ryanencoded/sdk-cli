@@ -1,6 +1,6 @@
 # Developer SDK Documentation
 
-This documentation aims to help new developers set their Apple Macintosh environment to work correctly with the UH Servers and efficiently develop web technologies, mobile applications and other development software on their local machine.
+This documentation aims to help new developers set their Apple Macintosh environment to work more efficiently to develop web technologies, mobile applications and other development software on their local machine.
 
 - Last Tested For: macOS Sierra 10.14.2
 - Last Updated By: Ryan Thompson
