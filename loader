@@ -81,14 +81,7 @@ else
 	echo "${RED}Developer SDK: Tunnels Missing${WHITE}";
 fi
 
-# 3) Mobile Tools
-if [ -f $DEVSDK/sbin/mobile ]; then
-	source $DEVSDK/sbin/mobile
-else
-	echo "${RED}Developer SDK: Mobile Tools Missing${WHITE}";
-fi
-
-# 4) Aliases
+# 3) Aliases
 if [ -f $DEVSDK/sbin/aliases ]; then
 	source $DEVSDK/sbin/aliases
 else
