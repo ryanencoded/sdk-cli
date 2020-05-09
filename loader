@@ -8,7 +8,7 @@
 #####################
 # Developer SDK Path
 #####################
-DEVSDK="/git/developer/sdk-cli"
+DEVSDK="/Users/$USER/git/lib/sdk-cli"
 
 #############################
 # Retrieve Global Variables
