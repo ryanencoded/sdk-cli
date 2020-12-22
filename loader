@@ -48,6 +48,7 @@ declare -a include=(
 	"$ANDROIDSDK/tools"
 	"$ANDROIDSDK/platform-tools"
 	"$ANDROIDSDK/build-tools/23.0.1"
+	"/Users/$USER/Library/Python/2.7/bin"
 )
 
 for i in "${include[@]}"
