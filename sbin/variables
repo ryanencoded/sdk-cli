@@ -8,7 +8,7 @@
 ###################################
 # Android Developer Tools SDK Path
 ###################################
-ANDROIDSDK="/opt/local/share/java/android-sdk-macosx"
+ANDROIDSDK="${HOME}/Library/Android/sdk"
 
 ##################
 # Regular Colors

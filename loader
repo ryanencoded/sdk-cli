@@ -8,7 +8,14 @@
 #####################
 # Developer SDK Path
 #####################
-DEVSDK="/Users/$USER/git/lib/sdk-cli"
+DEVSDK="$HOME/git/lib/sdk-cli"
+
+#####################
+# SDK Path Exports
+#####################
+
+export ANDROID_HOME=$ANDROIDSDK
+export ANDROID_SDK_ROOT=$ANDROID_HOME
 
 #############################
 # Retrieve Global Variables
@@ -17,14 +24,8 @@ DEVSDK="/Users/$USER/git/lib/sdk-cli"
 if [ -f $DEVSDK/sbin/variables ]; then
 	source $DEVSDK/sbin/variables
 else
-	echo "$(tput setaf 1)UH Developer Tools: Unable to load global variable$(tput setaf 0)}";
+	echo "$(tput setaf 1)Developer Tools: Unable to load global variable$(tput setaf 0)}";
 fi
-
-#######################
-# Set Profile Styling
-#######################
-PS1="\[$RED\]\u\[$WHITE\]:\[$YELLOW\][\w]"
-# FOR SERVERS - PS1="\[$RED\]\u\[$WHITE\]@\[$GREEN\]\h\[$WHITE\]:\[$YELLOW\][\w]\[${WHITE}\]\$ "
 
 ####################################
 # Sets Include Path to support:
@@ -37,9 +38,8 @@ PS1="\[$RED\]\u\[$WHITE\]:\[$YELLOW\][\w]"
 
 export PATH=""
 declare -a include=(
-	"/opt/local/bin"
-	"/Users/$USER/.npm-packages/bin"
 	"$DEVSDK/bin"
+	"$HOME/.npm-packages/bin"
 	"/usr/bin"
 	"/usr/local/bin"
 	"/bin"
@@ -47,8 +47,10 @@ declare -a include=(
 	"/sbin"
 	"$ANDROIDSDK/tools"
 	"$ANDROIDSDK/platform-tools"
-	"$ANDROIDSDK/build-tools/23.0.1"
-	"/Users/$USER/Library/Python/2.7/bin"
+	"$ANDROIDSDK/emulator"
+	"$HOME/Library/Python/2.7/bin"
+	"/opt/local/bin"
+	"/opt/homebrew/bin"
 )
 
 for i in "${include[@]}"
@@ -59,37 +61,19 @@ done
 #################################################################
 # Retrieves These Custom Bash Sources:
 #
-#    1) automatic git prompts when entering git repositories
-#    2) ssh tunnels for connecting to databases
-#    3) mobile tool commands for simplifying mobile development
-#    4) aliases for developing simplicity and efficiency
-#	 5) helper functions for developing simplicity and efficiency
+#    1) aliases for developing simplicity and efficiency
+#	 2) helper functions for developing simplicity and efficiency
 #################################################################
 
-# 1) Git Prompts
-if [ -f /opt/local/share/git/git-prompt.sh ]; then
-    source /opt/local/share/git/git-prompt.sh
-	PS1+="\[${GREEN}\]\$(__git_ps1 \(%s\))\[$WHITE\]\$ "
-else
-	echo "${RED}Developer SDK: Git Prompt Missing${WHITE}";
-	PS1+="\[$WHITE\]\$ "
-fi
 
-# 2) SSH Database Tunnels
-if [ -f $DEVSDK/sbin/tunnels ]; then
-	source $DEVSDK/sbin/tunnels
-else
-	echo "${RED}Developer SDK: Tunnels Missing${WHITE}";
-fi
-
-# 3) Aliases
+# 2) Aliases
 if [ -f $DEVSDK/sbin/aliases ]; then
 	source $DEVSDK/sbin/aliases
 else
 	echo "${RED}Developer SDK: Helper Aliases Missing${WHITE}";
 fi
 
-# 4) Helper Functions
+# 3) Helper Functions
 if [ -f $DEVSDK/sbin/helpers ]; then
 	source $DEVSDK/sbin/helpers
 else
@@ -97,18 +81,14 @@ else
 fi
 
 
-echo "${BLUE}Developer SDK Loaded ${WHITE}";
+echo "${WHITE}Developer SDK Loaded ${WHITE}";
 
 
-#Check That Apache and PHP Dont Need Updated
-# if [ ! -L /opt/local/etc/apache2/httpd.conf ]; then
-#    echo "${RED}Please run [sdk-update lib] to update your Apache.${WHITE}";
-# fi
-#
-# if [ ! -L /opt/local/etc/nginx/nginx.conf ]; then
-#   echo "${RED}Please run [sdk-update lib] to update your Nginx.${WHITE}";
-# fi
-
+#######################
+# Set Profile Styling
+#######################
+setopt PROMPT_SUBST
+PROMPT='%F{red}%n%f%F{white}@%f%F{cyan}%m%f %F{yellow}[%W]%f %F{white}%~%f%F{green}$(git_prompt)%f$'
 
 
 ########################
