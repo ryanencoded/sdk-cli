@@ -10,11 +10,10 @@
 #####################
 DEVSDK="$HOME/git/lib/sdk-cli"
 
-#####################
-# SDK Path Exports
-#####################
-
-export ANDROID_HOME=$ANDROIDSDK
+###################################
+# Android Developer Tools SDK Path
+###################################
+export ANDROID_HOME="${HOME}/Library/Android/sdk"
 export ANDROID_SDK_ROOT=$ANDROID_HOME
 
 #############################
@@ -39,18 +38,19 @@ fi
 export PATH=""
 declare -a include=(
 	"$DEVSDK/bin"
-	"$HOME/.npm-packages/bin"
 	"/usr/bin"
 	"/usr/local/bin"
 	"/bin"
 	"/usr/sbin"
 	"/sbin"
-	"$ANDROIDSDK/tools"
-	"$ANDROIDSDK/platform-tools"
-	"$ANDROIDSDK/emulator"
+	"$ANDROID_HOME/tools"
+	"$ANDROID_HOME/platform-tools"
+	"$ANDROID_HOME/emulator"
 	"$HOME/Library/Python/2.7/bin"
 	"/opt/local/bin"
 	"/opt/homebrew/bin"
+	"$HOME/.npm-packages/bin"
+	"$HOME/.yarn/bin"
 )
 
 for i in "${include[@]}"
@@ -88,7 +88,7 @@ echo "${WHITE}Developer SDK Loaded ${WHITE}";
 # Set Profile Styling
 #######################
 setopt PROMPT_SUBST
-PROMPT='%F{red}%n%f%F{white}@%f%F{cyan}%m%f %F{yellow}[%W]%f %F{white}%~%f%F{green}$(git_prompt)%f$'
+PROMPT='%F{red}%n%f%F{white}@%f%F{cyan}%m%f %F{yellow}[%W]%f %F{white}%~%f%F{green}$(git_prompt)%f$ '
 
 
 ########################

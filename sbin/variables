@@ -5,11 +5,6 @@
 # These are reusable variables used throughout the tools.
 ###########################################################
 
-###################################
-# Android Developer Tools SDK Path
-###################################
-ANDROIDSDK="${HOME}/Library/Android/sdk"
-
 ##################
 # Regular Colors
 ##################
