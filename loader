@@ -51,6 +51,7 @@ declare -a include=(
 	"/opt/homebrew/bin"
 	"$HOME/.npm-packages/bin"
 	"$HOME/.yarn/bin"
+	"$HOME/.rbenv/shims"
 )
 
 for i in "${include[@]}"
@@ -63,6 +64,7 @@ done
 #
 #    1) aliases for developing simplicity and efficiency
 #	 2) helper functions for developing simplicity and efficiency
+#	 3) sentry functions for common long processes
 #################################################################
 
 
@@ -78,6 +80,13 @@ if [ -f $DEVSDK/sbin/helpers ]; then
 	source $DEVSDK/sbin/helpers
 else
 	echo "${RED}Developer SDK: Helper Functions Missing${WHITE}";
+fi
+
+# 3) Sentry Functions
+if [ -f $DEVSDK/sbin/sentry ]; then
+	source $DEVSDK/sbin/sentry
+else
+	echo "${RED}Developer SDK: Sentry Functions Missing${WHITE}";
 fi
 
 

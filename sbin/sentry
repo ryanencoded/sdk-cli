@@ -1,0 +1,27 @@
+#!/bin/bash
+########################################################################
+# **Sentry Functions Script**
+#
+# This script contains reusable functions designed for performing common
+# sentry tasks more efficient and condensing long commands for simplicity.
+########################################################################
+
+archive_all_releases () {
+    echo "What releases do you want to keep?"
+    read EXCLUDE
+
+    all_releases=( $(sentry-cli releases list | awk -v skip=2 -v column=4 'NR <= skip { next } { if($column ~ /^(com|app)/) print $column }'));
+
+    for release in $all_releases; do 
+        if [[ $(echo ${EXCLUDE[@]} | fgrep -w $release) ]]
+        then
+            echo "Keeping $release"
+        else
+            sentry-cli releases archive $release
+        fi
+        
+     done
+   
+
+    
+}
